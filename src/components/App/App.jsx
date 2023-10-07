@@ -1,12 +1,21 @@
-import { Toaster } from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import Phonebook from '../Phonebook/Phonebook';
 import { Layout, WrapperStyled, Header } from './App.styled';
 import { ContactFofm } from '../ContactFofm/ContactFofm';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
+import { fetchContacts } from 'redux/operations';
 
 export function App() {
-  const contactsList = useSelector(getContacts);
+  const dispatch = useDispatch();
+  const items = useSelector(selectContacts);
+  console.log('itemsApp', items);
+
+  useEffect(() => {
+    console.log('before');
+    dispatch(fetchContacts());
+    console.log('after');
+  }, [dispatch]);
 
   return (
     <Layout>
@@ -14,8 +23,7 @@ export function App() {
         <Header>Phonebook</Header>
         <ContactFofm />
       </WrapperStyled>
-      {!!contactsList.length && <Phonebook />}
-      <Toaster position="top-right" reverseOrder={false} gutter={8} />
+      {!!items.length && <Phonebook />}
     </Layout>
   );
 }

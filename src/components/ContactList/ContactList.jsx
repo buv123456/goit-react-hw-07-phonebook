@@ -5,16 +5,16 @@ import {
   ListItemStyled,
   ListStyled,
 } from './ContactList.styled';
-import { deleteContact } from 'redux/contactsSlice';
-import { getContacts, getFilter } from 'redux/selectors';
+import { selectContacts, selectFilter } from 'redux/selectors';
+import { deleteContact } from 'redux/operations';
 
 export function ContactList() {
   const dispatch = useDispatch();
 
-  const contactsList = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const { items } = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
 
-  const filteredContacts = contactsList.filter(({ name, number }) =>
+  const filteredContacts = items.filter(({ name, number }) =>
     (name + number).toLowerCase().includes(filter.toLowerCase())
   );
 

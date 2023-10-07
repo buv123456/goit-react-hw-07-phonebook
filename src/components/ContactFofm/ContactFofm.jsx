@@ -1,7 +1,6 @@
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 import { SignupSchema } from 'helpers/submitCheck';
 import {
   ButtonStyled,
@@ -10,6 +9,7 @@ import {
   FormStyled,
   LabelStyled,
 } from './ContactFofm.styled';
+import { addContact } from 'redux/operations';
 
 const initialValues = {
   name: '',
@@ -18,13 +18,13 @@ const initialValues = {
 
 export function ContactFofm() {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const handleSubmit = ({ name, number }, { resetForm }) => {
     name = name.trim();
     number = number.trim();
 
-    if (contacts.some(i => i.name.toLowerCase() === name.toLowerCase())) {
+    if (contacts.items.some(i => i.name.toLowerCase() === name.toLowerCase())) {
       alert(name + ' is already in contacts list!');
     } else {
       dispatch(addContact({ name, number }));
