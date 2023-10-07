@@ -5,26 +5,20 @@ import {
   ListItemStyled,
   ListStyled,
 } from './ContactList.styled';
-import { selectContacts, selectFilter } from 'redux/selectors';
+import { selectFilteredContacts } from 'redux/selectors';
 import { deleteContact } from 'redux/operations';
 
 export function ContactList() {
   const dispatch = useDispatch();
-
-  const { items } = useSelector(selectContacts);
-  const filter = useSelector(selectFilter);
-
-  const filteredContacts = items.filter(({ name, number }) =>
-    (name + number).toLowerCase().includes(filter.toLowerCase())
-  );
+  const contacts = useSelector(selectFilteredContacts);
 
   return (
     <ListStyled>
-      {filteredContacts.map(({ name, number, id }) => (
+      {contacts.map(({ name, phone, id }) => (
         <ListItemStyled key={id} name={name}>
           <ItemInfoStyled>
             <span>{name}:</span>
-            <span> {number}</span>
+            <span> {phone}</span>
           </ItemInfoStyled>
           <ButtonStyled
             type="button"

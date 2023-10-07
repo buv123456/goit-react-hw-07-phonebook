@@ -9,7 +9,7 @@ export const SignupSchema = Yup.object().shape({
       "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
     )
     .required('Required'),
-  number: Yup.string()
+  phone: Yup.string()
     .min(2, 'Too Short!')
     .max(30, 'Too Long!')
     .matches(

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const PhonebookStyled = styled.div`
   width: 600px;
-  height: 400px;
+  max-height: 420px;
   display: flex;
   flex-direction: column;
   align-items: center;

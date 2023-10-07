@@ -20,4 +20,5 @@ export const WrapperStyled = styled.div``;
 export const Header = styled.h1`
   font-style: italic;
   text-align: center;
+  font-size: 30px;
 `;

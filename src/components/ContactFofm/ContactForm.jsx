@@ -8,26 +8,28 @@ import {
   FieldStyled,
   FormStyled,
   LabelStyled,
-} from './ContactFofm.styled';
+} from './ContactForm.styled';
 import { addContact } from 'redux/operations';
 
 const initialValues = {
   name: '',
-  number: '',
+  phone: '',
 };
 
-export function ContactFofm() {
+export function ContactForm() {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
+  console.log('contacts', contacts);
 
-  const handleSubmit = ({ name, number }, { resetForm }) => {
+  const handleSubmit = ({ name, phone }, { resetForm }) => {
+    console.log('handleSubmit');
     name = name.trim();
-    number = number.trim();
+    phone = phone.trim();
 
-    if (contacts.items.some(i => i.name.toLowerCase() === name.toLowerCase())) {
+    if (contacts.some(i => i.name.toLowerCase() === name.toLowerCase())) {
       alert(name + ' is already in contacts list!');
     } else {
-      dispatch(addContact({ name, number }));
+      dispatch(addContact({ name, phone }));
       resetForm();
     }
   };
@@ -50,8 +52,8 @@ export function ContactFofm() {
         </LabelStyled>
         <LabelStyled>
           Phone
-          <FieldStyled type="tel" name="number" placeholder="Phone" />
-          <ErrorMsgStyled name="number" component="div" />
+          <FieldStyled type="tel" name="phone" placeholder="Phone" />
+          <ErrorMsgStyled name="phone" component="div" />
         </LabelStyled>
         <ButtonStyled type="submit">Add contact</ButtonStyled>
       </FormStyled>

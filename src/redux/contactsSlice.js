@@ -11,32 +11,38 @@ const contactsSlice = createSlice({
 
   extraReducers: {
     // fetch all contacts from db
-    [fetchContacts.pending]: state => (state.isLoading = true),
-    [fetchContacts.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      state.items = payload;
+    [fetchContacts.pending](state) {
+      state.isLoading = true;
     },
-    [fetchContacts.rejected]: (state, { payload }) => {
+    [fetchContacts.fulfilled](state, action) {
+      state.isLoading = false;
+      state.items = action.payload;
+    },
+    [fetchContacts.rejected](state, { payload }) {
       state.isLoading = false;
       state.error = payload;
     },
     // when we add new contact to db
-    [addContact.pending]: state => (state.isLoading = true),
-    [addContact.fulfilled]: (state, { payload }) => {
+    [addContact.pending](state) {
+      state.isLoading = true;
+    },
+    [addContact.fulfilled](state, { payload }) {
       state.isLoading = false;
       state.items = [...state.items, payload];
     },
-    [addContact.rejected]: (state, { payload }) => {
+    [addContact.rejected](state, { payload }) {
       state.isLoading = false;
       state.error = payload;
     },
     // when delete contact from db
-    [deleteContact.pending]: state => (state.isLoading = true),
-    [deleteContact.fulfilled]: (state, { payload }) => {
+    [deleteContact.pending](state) {
+      state.isLoading = true;
+    },
+    [deleteContact.fulfilled](state, { payload }) {
       state.isLoading = false;
       state.items = state.items.filter(({ id }) => id !== payload);
     },
-    [deleteContact.rejected]: (state, { payload }) => {
+    [deleteContact.rejected](state, { payload }) {
       state.isLoading = false;
       state.error = payload;
     },
