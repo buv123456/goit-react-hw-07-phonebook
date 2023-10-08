@@ -22,9 +22,10 @@ export const ListStyled = styled.ul`
 export const ListItemStyled = styled.li`
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 10px;
+  color: #0000008d;
   &:hover {
-    color: teal;
+    color: black;
   }
 `;
 
@@ -37,12 +38,48 @@ export const ItemInfoStyled = styled.div`
 `;
 
 export const ButtonStyled = styled.button`
-  width: 100px;
-  font-size: 0.8rem;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
   text-transform: uppercase;
-  border-radius: 5px;
   &:hover {
-    background-color: teal;
-    color: white;
+    color: #ff3737;
+    scale: 1.2;
   }
+`;
+
+export const AllContactsStyled = styled.p`
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-weight: 700;
+  font-size: 10px;
+`;
+
+export const CheckBoxStyled = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  top: 15px;
+  right: 15px;
+  font-weight: 700;
+  font-size: 12px;
+`;
+
+export const CheckStyled = styled.div`
+  display: flex;
+  gap: 8px;
+`;
+
+export const LabelStyled = styled.label`
+  display: flex;
+  gap: 4px;
+  align-items: center;
 `;

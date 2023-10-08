@@ -35,15 +35,10 @@ const contactsSlice = createSlice({
       state.error = payload;
     },
     // when delete contact from db
-    [deleteContact.pending](state) {
-      state.isLoading = true;
-    },
     [deleteContact.fulfilled](state, { payload }) {
-      state.isLoading = false;
       state.items = state.items.filter(({ id }) => id !== payload);
     },
     [deleteContact.rejected](state, { payload }) {
-      state.isLoading = false;
       state.error = payload;
     },
   },

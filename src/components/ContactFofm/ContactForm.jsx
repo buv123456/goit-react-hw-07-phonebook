@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
+import Spinner from 'react-spinner-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from 'redux/selectors';
+import { selectContacts, selectIsLoading } from 'redux/selectors';
 import { SignupSchema } from 'helpers/submitCheck';
 import {
   ButtonStyled,
@@ -18,15 +19,18 @@ const initialValues = {
 
 export function ContactForm() {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
   const contacts = useSelector(selectContacts);
-  console.log('contacts', contacts);
 
   const handleSubmit = ({ name, phone }, { resetForm }) => {
-    console.log('handleSubmit');
     name = name.trim();
     phone = phone.trim();
 
-    if (contacts.some(i => i.name.toLowerCase() === name.toLowerCase())) {
+    if (
+      contacts.some(
+        ({ name: savedName }) => savedName.toLowerCase() === name.toLowerCase()
+      )
+    ) {
       alert(name + ' is already in contacts list!');
     } else {
       dispatch(addContact({ name, phone }));
@@ -55,7 +59,13 @@ export function ContactForm() {
           <FieldStyled type="tel" name="phone" placeholder="Phone" />
           <ErrorMsgStyled name="phone" component="div" />
         </LabelStyled>
-        <ButtonStyled type="submit">Add contact</ButtonStyled>
+        <ButtonStyled type="submit" disabled={isLoading}>
+          {isLoading ? (
+            <Spinner radius={25} color={'#333'} stroke={3} visible={true} />
+          ) : (
+            'Add contact'
+          )}
+        </ButtonStyled>
       </FormStyled>
     </Formik>
   );

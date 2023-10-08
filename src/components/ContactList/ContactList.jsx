@@ -1,34 +1,38 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
-  ButtonStyled,
-  ItemInfoStyled,
+  AllContactsStyled,
   ListItemStyled,
   ListStyled,
 } from './ContactList.styled';
-import { selectFilteredContacts } from 'redux/selectors';
-import { deleteContact } from 'redux/operations';
+import { selectContacts, selectFilteredContacts } from 'redux/selectors';
+import ContactItem from './ContactItem';
+import sorting from 'helpers/sorting';
+import { useState } from 'react';
+import { SortBox } from './SortBox';
 
 export function ContactList() {
-  const dispatch = useDispatch();
+  const contactsAll = useSelector(selectContacts);
   const contacts = useSelector(selectFilteredContacts);
+  const [sortBy, setSortBy] = useState('name');
+
+  const handleCheck = value => {
+    setSortBy(value);
+  };
 
   return (
-    <ListStyled>
-      {contacts.map(({ name, phone, id }) => (
-        <ListItemStyled key={id} name={name}>
-          <ItemInfoStyled>
-            <span>{name}:</span>
-            <span> {phone}</span>
-          </ItemInfoStyled>
-          <ButtonStyled
-            type="button"
-            name={id}
-            onClick={() => dispatch(deleteContact(id))}
-          >
-            delete
-          </ButtonStyled>
-        </ListItemStyled>
-      ))}
-    </ListStyled>
+    <>
+      <AllContactsStyled>
+        {contactsAll.length} all contacts <br />
+        {contacts.length} filtered contacts
+      </AllContactsStyled>
+      <SortBox onCheck={handleCheck} sortBy={sortBy} />
+      <ListStyled>
+        {sorting(contacts, sortBy).map(({ name, phone, id }) => (
+          <ListItemStyled key={id}>
+            <ContactItem name={name} phone={phone} id={id} />
+          </ListItemStyled>
+        ))}
+      </ListStyled>
+    </>
   );
 }

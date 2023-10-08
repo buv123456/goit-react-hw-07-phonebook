@@ -53,6 +53,9 @@ export const ButtonStyled = styled.button`
   font-size: inherit;
   font-weight: inherit;
   text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 8px;
   box-shadow: 3px 3px 10px #000000be;
   outline: none;
