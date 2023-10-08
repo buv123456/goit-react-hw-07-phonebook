@@ -1,5 +1,5 @@
-export default function sorting(items, indikator) {
+export default function sorting(items, indicator) {
   return items.sort((a, b) =>
-    b[indikator].toLowerCase() > a[indikator].toLowerCase() ? -1 : 1
+    b[indicator].toLowerCase() > a[indicator].toLowerCase() ? -1 : 1
   );
 }

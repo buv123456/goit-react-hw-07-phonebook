@@ -3,12 +3,13 @@ import { useEffect } from 'react';
 import Phonebook from '../Phonebook/Phonebook';
 import { Layout, WrapperStyled, Header } from './App.styled';
 import { ContactForm } from '../ContactFofm/ContactForm';
-import { selectContacts } from 'redux/selectors';
+import { selectContacts, selectError } from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
 
 export function App() {
   const dispatch = useDispatch();
-  const items = useSelector(selectContacts);
+  const contacts = useSelector(selectContacts);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -20,7 +21,8 @@ export function App() {
         <Header>Phonebook</Header>
         <ContactForm />
       </WrapperStyled>
-      {!!items.length && <Phonebook />}
+      {error && <p>{error}</p>}
+      {!!contacts.length && <Phonebook />}
     </Layout>
   );
 }
